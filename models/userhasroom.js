@@ -1,24 +1,27 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class UserHasRoom extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      UserHasRoom.belongsTo(models.User);
+      UserHasRoom.belongsTo(models.Room);
     }
   }
-  UserHasRoom.init({
-    UserId: DataTypes.INTEGER,
-    RoomId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'UserHasRoom',
-  });
+  UserHasRoom.init(
+    {
+      UserId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      RoomId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      }
+    },
+    {
+      sequelize,
+      modelName: 'UserHasRoom'
+    }
+  );
   return UserHasRoom;
 };

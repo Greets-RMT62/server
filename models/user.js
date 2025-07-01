@@ -1,24 +1,54 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { hashPass } = require('../migrations/helpers/bcrypt');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Room, { foreignKey: 'OwnerId' });
+      User.hasMany(models.UserHasRoom);
+      User.hasMany(models.Chat);
+      User.belongsToMany(models.Room, { through: 'UserHasRoom', foreignKey: 'UserId' });
     }
   }
-  User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  User.init(
+    {
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: {
+          msg: 'Username is already used'
+        },
+        validate: {
+          notNull: {
+            msg: 'Username is required'
+          },
+          notEmpty: {
+            msg: 'Username is required'
+          }
+        }
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'Password is required'
+          },
+          notEmpty: {
+            msg: 'Password is required'
+          }
+        }
+      }
+    },
+    {
+      hooks: {
+        beforeCreate(model) {
+          model.password = hashPass(model.password);
+        }
+      },
+      sequelize,
+      modelName: 'User'
+    }
+  );
   return User;
 };
