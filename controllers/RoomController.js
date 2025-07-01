@@ -23,6 +23,12 @@ class RoomController {
         RoomId: room.id,
         text: result,
       });
+
+      await UserHasRoom.create({
+        UserId: user.id,
+        RoomId: room.id,
+      });
+
       res.status(201).json(room);
     } catch (error) {
       console.error("Error creating room:", error);
