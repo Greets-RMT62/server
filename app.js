@@ -33,7 +33,7 @@ app.use(errorHandler);
 // app.post("/chats/invite/:UserId/:RoomId", ChatInviteController);
 
 // app.post("/chats/ai", ChatAiController.create);
-// app.post("/chats/ai/summarize/:RoomId", ChatAiController.summarize);
+app.post("/chats/ai/summarize/:RoomId", ChatAiController.summarize);
 
 // middleware error handler
 
