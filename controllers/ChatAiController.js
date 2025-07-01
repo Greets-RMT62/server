@@ -33,7 +33,7 @@ class ChatAiController {
         throw { message: "Room not found", name: "ErrorDataNotFound" };
       }
       if (!req.body || !req.body.message) {
-        return res.status(400).json({ error: "Message is required" });
+        throw { message: "Message is required", name: "ValidationError" };
       }
       const { message } = req.body;
       const input = `Buat balasan untuk pesan berikut:\n${message}`;
@@ -44,6 +44,7 @@ class ChatAiController {
         RoomId,
         text: result,
       });
+      await Room.update({ updatedAt: new Date() }, { where: { id: RoomId } });
       res.status(201).json(chat);
     } catch (error) {
       console.error("Error creating chat AI:", error);
@@ -77,6 +78,7 @@ class ChatAiController {
       input = `Buat konteks apa yang dibicarakan dari percakapan berikut:\n${input}`;
       const result = await ChatAiController.createPrompt(input);
       console.log("🚀 ~ ChatAiController ~ summarize ~ result:", result);
+      await Room.update({ updatedAt: new Date() }, { where: { id: RoomId } });
       if (!result) {
         throw {
           message: "Failed to generate summary",
