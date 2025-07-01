@@ -16,7 +16,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       OwnerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
       },
       roomType: {
         type: Sequelize.STRING,
