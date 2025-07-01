@@ -23,8 +23,8 @@ const authentication = require("./middlewares/authentication");
 app.use(authentication);
 //
 
-// app.post("/rooms", RoomController);
-// app.get("/rooms", RoomController);
+app.post("/rooms", RoomController.create);
+app.get("/rooms", RoomController.getAll);
 
 // app.post("/chats", ChatsController);
 // app.post("/chats/:RoomId", ChatsController);
@@ -32,7 +32,7 @@ app.use(authentication);
 // app.post("/chats/private/:UserId", ChatPrivateController);
 // app.post("/chats/invite/:UserId/:RoomId", ChatInviteController);
 
-// app.post("/chats/ai", ChatAiController.create);
+app.post("/chats/ai/:RoomId", ChatAiController.create);
 app.post("/chats/ai/summarize/:RoomId", ChatAiController.summarize);
 
 // middleware error handler

@@ -1,11 +1,14 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Room extends Model {
     static associate(models) {
       Room.hasMany(models.UserHasRoom);
       Room.hasMany(models.Chat);
-      Room.belongsTo(models.User);
+      Room.belongsTo(models.User, {
+        foreignKey: "OwnerId",
+        as: "Owner",
+      });
     }
   }
   Room.init(
@@ -13,19 +16,19 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         unique: {
-          msg: 'Room name must be unique'
-        }
+          msg: "Room name must be unique",
+        },
       },
       description: DataTypes.STRING,
       OwnerId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
-      roomType: DataTypes.STRING
+      roomType: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: 'Room'
+      modelName: "Room",
     }
   );
   return Room;
