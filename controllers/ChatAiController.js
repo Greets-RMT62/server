@@ -26,8 +26,25 @@ class ChatAiController {
   }
   static async create(req, res, next) {
     try {
-      const result = await ChatAiController.createPrompt(req.body.input);
-      res.status(201).json({ result });
+      const { RoomId } = req.params;
+
+      const room = await Room.findOne({ where: { id: RoomId } });
+      if (!room) {
+        throw { message: "Room not found", name: "ErrorDataNotFound" };
+      }
+      if (!req.body || !req.body.message) {
+        return res.status(400).json({ error: "Message is required" });
+      }
+      const { message } = req.body;
+      const input = `Buat balasan untuk pesan berikut:\n${message}`;
+      console.log("🚀 ~ ChatAiController ~ create ~ input:", input);
+      const result = await ChatAiController.createPrompt(input);
+      const chat = await Chat.create({
+        UserId: 1, // Assuming a default user ID for the AI response
+        RoomId,
+        text: result,
+      });
+      res.status(201).json(chat);
     } catch (error) {
       console.error("Error creating chat AI:", error);
       next(error);
@@ -54,9 +71,10 @@ class ChatAiController {
       if (!chats || chats.length === 0) {
         throw { message: "No chats found", name: "ErrorDataNotFound" };
       }
-      const input = chats
+      let input = chats
         .map((chat) => chat.User.username + ": " + chat.text)
         .join("\n");
+      input = `Buat konteks apa yang dibicarakan dari percakapan berikut:\n${input}`;
       const result = await ChatAiController.createPrompt(input);
       console.log("🚀 ~ ChatAiController ~ summarize ~ result:", result);
       if (!result) {
