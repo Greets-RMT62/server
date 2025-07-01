@@ -19,8 +19,7 @@ app.use(express.json());
 // app.post("/login", LoginController);
 
 // middleware authentication
-const errorHandler = require("./middlewares/errorHandler");
-app.use(errorHandler);
+
 //
 
 // app.post("/rooms", RoomController);
@@ -36,7 +35,8 @@ app.use(errorHandler);
 app.post("/chats/ai/summarize/:RoomId", ChatAiController.summarize);
 
 // middleware error handler
-
+const errorHandler = require("./middlewares/errorHandler");
+app.use(errorHandler);
 //
 
 module.exports = app;
