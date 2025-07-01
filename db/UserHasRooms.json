@@ -1,0 +1,22 @@
+[
+  { "UserId": 2, "RoomId": 1 },
+  { "UserId": 3, "RoomId": 1 },
+  { "UserId": 4, "RoomId": 1 },
+  { "UserId": 5, "RoomId": 1 },
+  { "UserId": 6, "RoomId": 1 },
+
+  { "UserId": 2, "RoomId": 2 },
+  { "UserId": 3, "RoomId": 2 },
+  { "UserId": 4, "RoomId": 2 },
+  { "UserId": 5, "RoomId": 2 },
+  { "UserId": 6, "RoomId": 2 },
+
+  { "UserId": 2, "RoomId": 3 },
+  { "UserId": 3, "RoomId": 3 },
+  { "UserId": 4, "RoomId": 3 },
+  { "UserId": 5, "RoomId": 3 },
+  { "UserId": 6, "RoomId": 3 },
+
+  { "UserId": 2, "RoomId": 4 },
+  { "UserId": 4, "RoomId": 4 }
+]

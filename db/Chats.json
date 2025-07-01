@@ -1,0 +1,68 @@
+[
+  {
+    "UserId": 2,
+    "RoomId": 1,
+    "text": "Halo semua! Selamat datang di General Chat.",
+    "createdAt": "2025-07-02T08:00:00.000Z",
+    "updatedAt": "2025-07-02T08:00:00.000Z"
+  },
+  {
+    "UserId": 3,
+    "RoomId": 1,
+    "text": "Hai Andi! Terima kasih sudah buat room ini.",
+    "createdAt": "2025-07-02T08:01:00.000Z",
+    "updatedAt": "2025-07-02T08:01:00.000Z"
+  },
+  {
+    "UserId": 4,
+    "RoomId": 1,
+    "text": "Halo semua, salam kenal ya!",
+    "createdAt": "2025-07-02T08:02:00.000Z",
+    "updatedAt": "2025-07-02T08:02:00.000Z"
+  },
+
+  {
+    "UserId": 2,
+    "RoomId": 2,
+    "text": "Project Alpha dimulai hari ini, semangat tim!",
+    "createdAt": "2025-07-02T09:00:00.000Z",
+    "updatedAt": "2025-07-02T09:00:00.000Z"
+  },
+  {
+    "UserId": 5,
+    "RoomId": 2,
+    "text": "Siap, Andi! Aku sudah cek task di Trello.",
+    "createdAt": "2025-07-02T09:01:00.000Z",
+    "updatedAt": "2025-07-02T09:01:00.000Z"
+  },
+
+  {
+    "UserId": 6,
+    "RoomId": 3,
+    "text": "Ada yang main game malam ini?",
+    "createdAt": "2025-07-02T10:00:00.000Z",
+    "updatedAt": "2025-07-02T10:00:00.000Z"
+  },
+  {
+    "UserId": 3,
+    "RoomId": 3,
+    "text": "Aku ikut! Main apa nih?",
+    "createdAt": "2025-07-02T10:01:00.000Z",
+    "updatedAt": "2025-07-02T10:01:00.000Z"
+  },
+
+  {
+    "UserId": 2,
+    "RoomId": 4,
+    "text": "Halo Lionel, ini chat private kita ya.",
+    "createdAt": "2025-07-02T11:00:00.000Z",
+    "updatedAt": "2025-07-02T11:00:00.000Z"
+  },
+  {
+    "UserId": 4,
+    "RoomId": 4,
+    "text": "Siap Andi, terima kasih sudah invite.",
+    "createdAt": "2025-07-02T11:01:00.000Z",
+    "updatedAt": "2025-07-02T11:01:00.000Z"
+  }
+]

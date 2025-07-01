@@ -1,0 +1,34 @@
+[
+  {
+    "name": "General Chat",
+    "description": "Tempat ngobrol santai semua member.",
+    "OwnerId": 2,
+    "roomType": "group-chat",
+    "createdAt": "2025-07-02T00:00:00.000Z",
+    "updatedAt": "2025-07-02T00:00:00.000Z"
+  },
+  {
+    "name": "Project Alpha",
+    "description": "Diskusi khusus project Alpha.",
+    "OwnerId": 2,
+    "roomType": "group-chat",
+    "createdAt": "2025-07-02T00:00:00.000Z",
+    "updatedAt": "2025-07-02T00:00:00.000Z"
+  },
+  {
+    "name": "Gaming Room",
+    "description": "Ngobrol seputar game dan e-sport.",
+    "OwnerId": 2,
+    "roomType": "group-chat",
+    "createdAt": "2025-07-02T00:00:00.000Z",
+    "updatedAt": "2025-07-02T00:00:00.000Z"
+  },
+  {
+    "name": "private-chat-Andi-and-Lionel",
+    "description": "",
+    "OwnerId": 2,
+    "roomType": "private-chat",
+    "createdAt": "2025-07-02T00:00:00.000Z",
+    "updatedAt": "2025-07-02T00:00:00.000Z"
+  }
+]
