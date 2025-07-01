@@ -22,8 +22,8 @@ app.use(express.json());
 
 //
 
-// app.post("/rooms", RoomController);
-// app.get("/rooms", RoomController);
+app.post("/rooms", RoomController.create);
+app.get("/rooms", RoomController.getAll);
 
 // app.post("/chats", ChatsController);
 // app.post("/chats/:RoomId", ChatsController);
