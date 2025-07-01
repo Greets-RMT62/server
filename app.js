@@ -30,10 +30,10 @@ app.get("/rooms", RoomController.getAll);
 // app.post("/chats/:RoomId", ChatsController);
 
 // app.post("/chats/private/:UserId", ChatPrivateController);
-app.post("/chats/invite/:UserId/:RoomId", ChatInviteController.create);
+app.post("/rooms/:RoomId/invitations", ChatInviteController.create);
 
-app.post("/chats/ai/:RoomId", ChatAiController.create);
-app.post("/chats/ai/summarize/:RoomId", ChatAiController.summarize);
+app.post("/rooms/:RoomId/ai-chats", ChatAiController.create);
+app.post("/rooms/:RoomId/summaries", ChatAiController.summarize);
 
 // middleware error handler
 const errorHandler = require("./middlewares/errorHandler");

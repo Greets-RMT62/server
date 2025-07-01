@@ -3,15 +3,16 @@ const ChatAiController = require("./ChatAiController");
 class ChatInviteController {
   static async create(req, res, next) {
     try {
-      const { UserId, RoomId } = req.params;
-
-      // Validate input
-      if (!UserId || !RoomId) {
+      const { RoomId } = req.params;
+      if (!req.body) {
         throw {
-          message: "UserId or RoomId is required",
+          message: "UserId is required",
           name: "ValidationError",
         };
       }
+      const { UserId } = req.body;
+
+      // Validate input
       const user = await User.findByPk(UserId);
       const room = await Room.findByPk(RoomId);
 
