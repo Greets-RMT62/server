@@ -16,10 +16,11 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.post("/login", LoginController);
+app.post("/login", LoginController.login);
 
 // middleware authentication
-
+const authentication = require("./middlewares/authentication");
+app.use(authentication);
 //
 
 // app.post("/rooms", RoomController);
