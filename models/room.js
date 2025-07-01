@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Room.init(
     {
-      name: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        unique: {
+          msg: 'Room name must be unique'
+        }
+      },
       description: DataTypes.STRING,
       OwnerId: {
         type: DataTypes.INTEGER,
