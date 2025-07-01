@@ -30,7 +30,7 @@ app.get("/rooms", RoomController.getAll);
 // app.post("/chats/:RoomId", ChatsController);
 
 // app.post("/chats/private/:UserId", ChatPrivateController);
-// app.post("/chats/invite/:UserId/:RoomId", ChatInviteController);
+app.post("/chats/invite/:UserId/:RoomId", ChatInviteController.create);
 
 app.post("/chats/ai/:RoomId", ChatAiController.create);
 app.post("/chats/ai/summarize/:RoomId", ChatAiController.summarize);
