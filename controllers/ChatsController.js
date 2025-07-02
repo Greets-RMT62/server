@@ -1,4 +1,4 @@
-const { Chat } = require("../models");
+const { Chat, Room } = require("../models");
 
 class ChatsController {
   static async getChats(req, res, next) {
@@ -40,6 +40,10 @@ class ChatsController {
         text,
         ChatId
       });
+
+      const room = await Room.findOne({ where: { id: RoomId } });
+      room.changed("updatedAt", true);
+      await room.update({ updatedAt: new Date() });
       res.status(200).json(data);
     } catch (error) {
       next(error);

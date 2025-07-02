@@ -10,11 +10,10 @@ class ChatAiController {
         input: [
           {
             role: "system",
-            content:
-              "Jawablah setiap pertanyaan dengan gaya santai, ramah, dan fun. Jangan terlalu formal.",
+            content: "Jawablah setiap pertanyaan dengan gaya santai, ramah, dan fun. Jangan terlalu formal."
           },
-          { role: "user", content: input },
-        ],
+          { role: "user", content: input }
+        ]
       });
 
       // Perhatikan properti response, sesuaikan dengan struktur response dari openai
@@ -42,9 +41,11 @@ class ChatAiController {
       const chat = await Chat.create({
         UserId: 1, // Assuming a default user ID for the AI response
         RoomId,
-        text: result,
+        text: result
       });
-      await Room.update({ updatedAt: new Date() }, { where: { id: RoomId } });
+
+      room.changed("updatedAt", true);
+      await room.update({ updatedAt: new Date() });
       res.status(201).json(chat);
     } catch (error) {
       console.error("Error creating chat AI:", error);
@@ -63,32 +64,31 @@ class ChatAiController {
       const chats = await Chat.findAll({
         include: {
           model: User,
-          attributes: ["id", "username"],
+          attributes: ["id", "username"]
         },
         where: {
-          RoomId,
-        },
+          RoomId
+        }
       });
       if (!chats || chats.length === 0) {
         throw { message: "No chats found", name: "ErrorDataNotFound" };
       }
-      let input = chats
-        .map((chat) => chat.User.username + ": " + chat.text)
-        .join("\n");
+      let input = chats.map((chat) => chat.User.username + ": " + chat.text).join("\n");
       input = `Buat konteks apa yang dibicarakan dari percakapan berikut:\n${input}`;
       const result = await ChatAiController.createPrompt(input);
       console.log("🚀 ~ ChatAiController ~ summarize ~ result:", result);
-      await Room.update({ updatedAt: new Date() }, { where: { id: RoomId } });
+      room.changed("updatedAt", true);
+      await room.update({ updatedAt: new Date() });
       if (!result) {
         throw {
           message: "Failed to generate summary",
-          name: "InternalServerError",
+          name: "InternalServerError"
         };
       }
       const chat = await Chat.create({
         UserId: 1, // Assuming a default user ID for the AI response
         RoomId,
-        text: result,
+        text: result
       });
       res.status(201).json(chat);
     } catch (error) {
