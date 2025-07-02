@@ -11,6 +11,7 @@ const ChatsController = require("./controllers/ChatsController");
 const LoginController = require("./controllers/LoginController");
 const ChatAiController = require("./controllers/ChatAiController");
 const RoomController = require("./controllers/RoomController");
+const UserController = require("./controllers/UserController");
 const { guardChats } = require("./middlewares/authorization");
 
 app.use(cors());
@@ -23,6 +24,8 @@ app.post("/login", LoginController.login);
 const authentication = require("./middlewares/authentication");
 app.use(authentication);
 //
+
+app.get("/users", UserController.getAllUsers);
 
 app.post("/rooms", RoomController.create);
 app.get("/rooms", RoomController.getAll);
