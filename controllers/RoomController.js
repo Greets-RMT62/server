@@ -51,6 +51,15 @@ class RoomController {
                 as: "Owner",
                 attributes: ["id", "username"],
               },
+              {
+                model: UserHasRoom,
+                include: [
+                  {
+                    model: User,
+                    attributes: ["id", "username"],
+                  },
+                ],
+              },
             ],
           },
         ],
