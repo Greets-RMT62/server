@@ -8,7 +8,7 @@ class ChatPrivateController {
           name: "ValidationError",
         };
       }
-      const { targetUserId, message } = req.body;
+      const { targetUserId } = req.body;
       const user = req.user; // Assuming the authenticated user's ID is in req.user
       console.log("🚀 ~ ChatPrivateController ~ create ~ user:", user);
       // Validate input
@@ -18,6 +18,19 @@ class ChatPrivateController {
         throw { message: "Target User not found", name: "ErrorDataNotFound" };
       }
 
+      const cekRoom = await Room.findOne({
+        where: {
+          roomType: "private-chat",
+          name: `private-chat-${user.username}-and-${targetUser.username}`,
+        },
+      });
+
+      if (cekRoom) {
+        return res
+          .status(200)
+          .json({ message: "Private chat already exists", room: cekRoom });
+      }
+      // Create a new private chat room
       const room = await Room.create({
         name: `private-chat-${user.username}-and-${targetUser.username}`,
         roomType: "private-chat",
@@ -29,13 +42,9 @@ class ChatPrivateController {
         RoomId: room.id,
       });
 
-      const chat = await Chat.create({
-        UserId: user.id,
-        RoomId: room.id,
-        text: message,
-      });
-
-      res.status(201).json(chat);
+      res
+        .status(201)
+        .json({ message: "Private chat created successfully", room });
     } catch (error) {
       next(error);
     }
