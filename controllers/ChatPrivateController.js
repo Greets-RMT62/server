@@ -41,6 +41,10 @@ class ChatPrivateController {
         UserId: user.id,
         RoomId: room.id,
       });
+      await UserHasRoom.create({
+        UserId: targetUser.id,
+        RoomId: room.id,
+      });
 
       res
         .status(201)
