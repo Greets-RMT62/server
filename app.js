@@ -26,8 +26,8 @@ app.use(authentication);
 app.post("/rooms", RoomController.create);
 app.get("/rooms", RoomController.getAll);
 
-// app.post("/chats", ChatsController);
-// app.post("/chats/:RoomId", ChatsController);
+app.get("/chats/:RoomId", ChatsController.getChats);
+app.post("/chats/:RoomId", ChatsController.postChat);
 
 //
 app.post("/rooms/:RoomId/invitations", ChatInviteController.create);
