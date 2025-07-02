@@ -19,5 +19,31 @@ class ChatsController {
       next(error);
     }
   }
+  static async postChat(req, res, next) {
+    try {
+      if (!req.params || req.params.RoomId === ":RoomId") {
+        throw { name: "ValidationError", message: "Params RoomId is required" };
+      }
+      if (!req.body) {
+        throw { name: "ValidationError", message: "Request body is required" };
+      }
+
+      let { text, ChatId } = req.body;
+      if (!ChatId) {
+        ChatId = null;
+      }
+
+      const { RoomId } = req.params;
+      const data = await Chat.create({
+        UserId: req.user.id,
+        RoomId,
+        text,
+        ChatId
+      });
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 module.exports = ChatsController;
