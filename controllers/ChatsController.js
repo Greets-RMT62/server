@@ -1,4 +1,4 @@
-const { Chat, Room } = require("../models");
+const { Chat, Room, User } = require("../models");
 
 class ChatsController {
   static async getChats(req, res, next) {
@@ -10,9 +10,17 @@ class ChatsController {
       const { RoomId } = req.params;
       const data = await Chat.findAll({
         where: {
-          RoomId
+          RoomId,
         },
-        order: [["createdAt", "ASC"]]
+        include: [
+          {
+            model: User,
+            attributes: {
+              exclude: ["password", "createdAt", "updatedAt"],
+            },
+          },
+        ],
+        order: [["id", "ASC"]],
       });
       res.status(200).json(data);
     } catch (error) {
@@ -38,7 +46,7 @@ class ChatsController {
         UserId: req.user.id,
         RoomId,
         text,
-        ChatId
+        ChatId,
       });
 
       const room = await Room.findOne({ where: { id: RoomId } });
