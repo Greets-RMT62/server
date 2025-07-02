@@ -11,6 +11,7 @@ const ChatsController = require("./controllers/ChatsController");
 const LoginController = require("./controllers/LoginController");
 const ChatAiController = require("./controllers/ChatAiController");
 const RoomController = require("./controllers/RoomController");
+const { guardChats } = require("./middlewares/authorization");
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -26,8 +27,8 @@ app.use(authentication);
 app.post("/rooms", RoomController.create);
 app.get("/rooms", RoomController.getAll);
 
-app.get("/chats/:RoomId", ChatsController.getChats);
-app.post("/chats/:RoomId", ChatsController.postChat);
+app.get("/chats/:RoomId", guardChats, ChatsController.getChats);
+app.post("/chats/:RoomId", guardChats, ChatsController.postChat);
 
 //
 app.post("/rooms/:RoomId/invitations", ChatInviteController.create);
