@@ -1,0 +1,65 @@
+const app = require("../app");
+const http = require("http");
+const { Server } = require("socket.io");
+const port = process.env.PORT || 3000;
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    methods: ["GET", "POST"],
+  },
+});
+
+// Socket.IO connection handling
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  // Join a room
+  socket.on("join-room", (roomId, userId) => {
+    socket.join(roomId);
+    socket.roomId = roomId;
+    socket.userId = userId;
+    console.log(`User ${userId} joined room ${roomId}`);
+
+    // Notify others in the room
+    socket.to(roomId).emit("user-joined", { userId, socketId: socket.id });
+  });
+
+  // Handle new messages
+  socket.on("send-message", (messageData) => {
+    console.log("Message received:", messageData);
+    // Broadcast to all users in the room except sender
+    socket.to(messageData.roomId).emit("receive-message", messageData);
+  });
+
+  // Handle typing indicators
+  socket.on("typing", (data) => {
+    socket.to(data.roomId).emit("user-typing", {
+      userId: data.userId,
+      isTyping: data.isTyping,
+    });
+  });
+
+  // Handle leaving room
+  socket.on("leave-room", (roomId) => {
+    socket.leave(roomId);
+    socket
+      .to(roomId)
+      .emit("user-left", { userId: socket.userId, socketId: socket.id });
+  });
+
+  // Handle disconnection
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+    if (socket.roomId) {
+      socket
+        .to(socket.roomId)
+        .emit("user-left", { userId: socket.userId, socketId: socket.id });
+    }
+  });
+});
+
+server.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
